@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result - Titanic</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="result-header {{ result_class }}">
+            <h1>{{ emoji }} Prediction Result</h1>
+            <div class="result-badge {{ result_class }}">
+                {{ result }}
+            </div>
+        </div>
+
+        <div class="result-content">
+            <div class="passenger-info">
+                <h3>Passenger Details:</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="label">Class:</span>
+                        <span class="value">{{ pclass }}{% if pclass == 1 %}st{% elif pclass == 2 %}nd{% else %}rd{% endif %} Class</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Gender:</span>
+                        <span class="value">{{ sex }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Age:</span>
+                        <span class="value">{{ age }} years</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Fare:</span>
+                        <span class="value">£{{ "%.2f"|format(fare) }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Embarked:</span>
+                        <span class="value">
+                            {% if embarked == 'C' %}Cherbourg
+                            {% elif embarked == 'Q' %}Queenstown
+                            {% else %}Southampton
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prediction-result">
+                <h3>Survival Prediction:</h3>
+                <div class="probability-circle {{ result_class }}">
+                    <div class="probability-value">{{ probability }}</div>
+                    <div class="probability-label">Survival Chance</div>
+                </div>
+                <p class="result-message">{{ message }}</p>
+            </div>
+
+            <div class="action-buttons">
+                <a href="/" class="btn btn-primary">Make Another Prediction</a>
+                <button onclick="window.history.back()" class="btn btn-secondary">Go Back</button>
+            </div>
+        </div>
+
+        <div class="model-info">
+            <p><strong>Model Information:</strong> This prediction was made using a Logistic Regression model trained on the Titanic dataset with an accuracy of approximately 80%.</p>
+        </div>
+    </div>
+</body>
+</html>
